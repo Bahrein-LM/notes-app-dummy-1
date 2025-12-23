@@ -85,5 +85,3 @@ connectDB()
 // app.listen(PORT, () => {
 //    console.log(`Server started on port http://localhost:${PORT}`)
 //})
-
-// "mongodb+srv://herouser:hero123@cluster1.qzmy6jc.mongodb.net/?appName=cluster1"
