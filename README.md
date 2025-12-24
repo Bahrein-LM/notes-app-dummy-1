@@ -54,3 +54,47 @@ git pull origin main --rebase
 git push -u origin main
 ```
 
+&nbsp; &nbsp; Now, when you want update your repository on github, you need to implement this command for verified your changes:
+```bash
+git fetch origin
+
+git checkout main
+
+git merge -ff-only origin main
+```
+
+&nbsp; &nbsp; After that, you need to push it again to your repository using this:
+
+```bash
+git add -p
+```
+
+&nbsp; &nbsp; the usefulness of using above command is to add current update on your file then you will be given each alphabet of each behaviour will be done for your updated code. Here is the option:
+```bash
+(y) = stage this hunk
+
+(n) = do not stage this hunk
+
+(a) = stage this hunk and all remaining hunks
+
+(d) = do not stage this hunk or any remaining hunks
+
+(e) = manually edit the hunk (remove lines you don’t want to stage)
+
+(p) = try to split the hunk into smaller hunks (then answer for each)
+
+(q) = quit; don’t stage this hunk or any further hunks
+
+(?) = show help
+```
+
+&nbsp; &nbsp; after you accept all your edited code to `git add -p` command then you need to continue by applying this command:
+
+```bash
+git commit -m "Describe your changes"
+
+git pull --rebase origin main
+
+git push origin main
+```
+
