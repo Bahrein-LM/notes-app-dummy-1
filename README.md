@@ -9,18 +9,28 @@
 <br>
 
 Here is the step that you need to follow:
-1. First, you need to initialize node package manager on center folder (not inside backend or frontend) by using this command:
+
+#### First Step
+
+you need to initialize node package manager on center folder (not inside backend or frontend) by using this command:
+
 ```bash
 npm init -y
 ```
-2. Second, edit your package.json on the scripts part:
+#### Second Step
+
+Second, edit your package.json on the scripts part:
+
 ```bash
 
 "scripts": { 
     'build': 'npm install --prefix backend && npm install --prefix frontend'
 }
 ```
-3. Third, run this command on the CMD or PowerShell:
+#### Third Step
+
+Third, run this command on the CMD or PowerShell:
+
 ```bash
 npm run build
 ```
@@ -29,6 +39,7 @@ npm run build
 ## Quick Reminder
 
 &nbsp; &nbsp; when you try to push safely for the first time onto the github you must follow this command to push safely on github
+
 ```bash
 git add .
 git commit -m "first commit"
@@ -37,6 +48,7 @@ git remote add origin https://github.com/CodePolitan/notes-app-dummy-1.git
 git push -u origin main
 ```
 &nbsp; &nbsp; if you got an error notification because you need to pull it first. Don't worry, that was just a safety precautions because there is a `README` or `license` file that already exist on your repository. To handle it, follow this command:
+
 ```bash
 git pull origin main --rebase
 git push -u origin main

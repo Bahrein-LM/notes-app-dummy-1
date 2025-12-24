@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv';
 import cors from 'cors';
+import path from 'path';
 
 import nodesRoutes from './routes/nodesRoutes.js';
 import { connectDB } from './config/db.js';
@@ -42,6 +43,11 @@ const app = express()
 const PORT = process.env.PORT || 3001;
 const PORT_FRONT = 5173;
 
+const __dirname = path.resolve();
+
+// checks the route folder of __dirname
+// console.log(__dirname);
+
 
 // connectDB() // connect to the database
 
@@ -53,12 +59,15 @@ const PORT_FRONT = 5173;
 
 // declare middleware
 app.use(express.json()) // this middleware will parse JSON bodies: req.body
-app.use(cors({
-    origin: `http://localhost:${PORT_FRONT}`, // localhost from frontend
-}));
-app.use(rateLimiter);
 
+// this CORS library only be used when webflow state in development mode
+if (process.env.NODE_ENV !== 'production') {
+    app.use(cors({
+        origin: `http://localhost:${PORT_FRONT}`, // localhost from frontend
+    }));
+}
 
+app.use("/api/notes", nodesRoutes);
 
 // here is how to use middleware
 // app.use((req, res, next) => {
@@ -67,7 +76,20 @@ app.use(rateLimiter);
 // })
 // middleware above will be executed when you run another process in "nodesRoutes" function (run "GET, POST, PUT, or DELETE")
 
-app.use("/api/notes", nodesRoutes);
+// declare middleware for rate limiter
+app.use(rateLimiter);
+
+if (process.env.NODE_ENV === 'production') {
+
+    // combined backend features with builded frontend
+    app.use(express.static(path.join(__dirname, '../frontend/dist')))
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../frontend', 'dist', 'index.html'))
+    })
+}
+
+// --> files above only be used when webflow state in production mode
 
 // you can combine it by lets put connecting DB first, then run the server
 connectDB()
